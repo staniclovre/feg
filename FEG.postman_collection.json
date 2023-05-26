@@ -45,12 +45,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://api.instatus.com/v1/pages",
-					"protocol": "https",
+					"raw": "{{baseUrl}}/v1/pages",
 					"host": [
-						"api",
-						"instatus",
-						"com"
+						"{{baseUrl}}"
 					],
 					"path": [
 						"v1",
@@ -129,12 +126,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://api.instatus.com/v1/{{page_id}}/components",
-					"protocol": "https",
+					"raw": "{{baseUrl}}/v1/{{page_id}}/components",
 					"host": [
-						"api",
-						"instatus",
-						"com"
+						"{{baseUrl}}"
 					],
 					"path": [
 						"v1",
@@ -177,12 +171,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://api.instatus.com/v1/{{page_id}}/components/{{component_id}}",
-					"protocol": "https",
+					"raw": "{{baseUrl}}/v1/{{page_id}}/components/{{component_id}}",
 					"host": [
-						"api",
-						"instatus",
-						"com"
+						"{{baseUrl}}"
 					],
 					"path": [
 						"v1",
@@ -249,12 +240,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://api.instatus.com/v1/{{page_id}}/incidents",
-					"protocol": "https",
+					"raw": "{{baseUrl}}/v1/{{page_id}}/incidents",
 					"host": [
-						"api",
-						"instatus",
-						"com"
+						"{{baseUrl}}"
 					],
 					"path": [
 						"v1",
