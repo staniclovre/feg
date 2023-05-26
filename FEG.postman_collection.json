@@ -1,0 +1,299 @@
+{
+	"info": {
+		"_postman_id": "aba59195-5cd9-48f3-906f-2ff951328ada",
+		"name": "FEG",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "pages",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(`Response time is less than ${pm.environment.get(\"responseTime\")}`, () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get(\"responseTime\")));\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"if (jsonData && jsonData.length > 0) {\r",
+							"    pm.test(\"page_id is not null\", function () {\r",
+							"        pm.expect(jsonData[0].id, \"page_id is null\").to.not.be.null;\r",
+							"    });\r",
+							"\r",
+							"    pm.environment.set(\"page_id\", jsonData[0].id);\r",
+							"} else {\r",
+							"    console.log(\"Error: jsonData is null or empty\");\r",
+							"    pm.test(\"jsonData is not null or empty\", function () {\r",
+							"        pm.expect(jsonData, \"jsonData is null\").to.not.be.null;\r",
+							"        pm.expect(jsonData.length, \"jsonData is empty\").to.be.above(0);\r",
+							"    });\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.instatus.com/v1/pages",
+					"protocol": "https",
+					"host": [
+						"api",
+						"instatus",
+						"com"
+					],
+					"path": [
+						"v1",
+						"pages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "components",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(`Response time is less than ${pm.environment.get(\"responseTime\")}`, () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get(\"responseTime\")));\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"if (jsonData && jsonData.length > 0) {\r",
+							"    pm.test(\"component_id is not null\", function () {\r",
+							"        pm.expect(jsonData[0].id, \"component_id is null\").to.not.be.null;\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"component_name is not null\", function () {\r",
+							"        pm.expect(jsonData[0].name, \"component_name is null\").to.not.be.null;\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"component_order is not null\", function () {\r",
+							"        pm.expect(jsonData[0].order, \"component_order is null\").to.not.be.null;\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"component_uniqueEmail is not null\", function () {\r",
+							"        pm.expect(jsonData[0].uniqueEmail, \"component_uniqueEmail is null\").to.not.be.null;\r",
+							"    });\r",
+							"\r",
+							"    pm.environment.set(\"component_id\", jsonData[0].id);\r",
+							"    pm.environment.set(\"component_name\", jsonData[0].name);\r",
+							"    pm.environment.set(\"component_order\", jsonData[0].order);\r",
+							"    pm.environment.set(\"component_uniqueEmail\", jsonData[0].uniqueEmail);\r",
+							"} else {\r",
+							"    pm.test(\"jsonData is not null or empty\", function () {\r",
+							"        pm.expect(jsonData, \"jsonData is null\").to.not.be.null;\r",
+							"        pm.expect(jsonData.length, \"jsonData is empty\").to.be.above(0);\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"var componentUniqueEmail = pm.environment.get(\"component_uniqueEmail\");\r",
+							"var emailPattern = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\r",
+							"\r",
+							"if (!componentUniqueEmail || !emailPattern.test(componentUniqueEmail)) {\r",
+							"    console.log(\"Error: component_uniqueEmail is not a valid email or not present.\");\r",
+							"    pm.test(\"Validating component_uniqueEmail\", function () {\r",
+							"        pm.expect(false).to.be.true;\r",
+							"    });\r",
+							"} else {\r",
+							"    pm.test(\"Validating Unique Email\", function () {\r",
+							"        pm.expect(true).to.be.true;\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.instatus.com/v1/{{page_id}}/components",
+					"protocol": "https",
+					"host": [
+						"api",
+						"instatus",
+						"com"
+					],
+					"path": [
+						"v1",
+						"{{page_id}}",
+						"components"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "component info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(`Response time is less than ${pm.environment.get(\"responseTime\")}`, () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get(\"responseTime\")));\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Verify environment variables match JSON data\", function () {\r",
+							"    pm.expect(pm.environment.get(\"component_id\")).to.equal(jsonData.id);\r",
+							"    pm.expect(pm.environment.get(\"component_name\")).to.equal(jsonData.name);\r",
+							"    pm.expect(pm.environment.get(\"component_order\")).to.equal(jsonData.order);\r",
+							"    pm.expect(pm.environment.get(\"component_uniqueEmail\")).to.equal(jsonData.uniqueEmail);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.instatus.com/v1/{{page_id}}/components/{{component_id}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"instatus",
+						"com"
+					],
+					"path": [
+						"v1",
+						"{{page_id}}",
+						"components",
+						"{{component_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "incidents",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(`Response time is less than ${pm.environment.get(\"responseTime\")}`, () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(Number(pm.environment.get(\"responseTime\")));\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"let allPropertiesNonNull = true;\r",
+							"\r",
+							"jsonData.forEach((item) => {\r",
+							"  item.updates.forEach((update) => {\r",
+							"    if (\r",
+							"      update.hasOwnProperty(\"id\") &&\r",
+							"      update.hasOwnProperty(\"createdAt\") &&\r",
+							"      update.hasOwnProperty(\"incidentId\")\r",
+							"    ) {\r",
+							"      if (\r",
+							"        update.id !== null &&\r",
+							"        update.createdAt !== null &&\r",
+							"        update.incidentId !== null\r",
+							"      ) {\r",
+							"        pm.test(\"All required properties have non-null values.\", () => {\r",
+							"        });\r",
+							"      } else {\r",
+							"        allPropertiesNonNull = false;\r",
+							"      }\r",
+							"    }\r",
+							"  });\r",
+							"});\r",
+							"\r",
+							"if (!allPropertiesNonNull) {\r",
+							"  pm.test(\"At least one required property has a null value or is missing.\", () => {\r",
+							"    pm.expect(false, \"At least one required property has a null value or is missing.\").to.be.true;\r",
+							"  });\r",
+							"}\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.instatus.com/v1/{{page_id}}/incidents",
+					"protocol": "https",
+					"host": [
+						"api",
+						"instatus",
+						"com"
+					],
+					"path": [
+						"v1",
+						"{{page_id}}",
+						"incidents"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{barrer_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
